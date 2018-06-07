@@ -1,6 +1,6 @@
 # .map will create a new array with numbers instead of letters
 class CaesarCipher
-  def caesar_cipher(input, shift)
+  def caesar_cipher(input:, shift:)
     final_string = ''
     ascii_values = input.chars.map(&:ord)
     # creates an array of chars
@@ -15,57 +15,48 @@ class CaesarCipher
   end
 
   def shift_logic(letter_value, shift_amount)
-    new_letter_value = letter_value
     # account for the case of blank spaces, exclamations etc
 
     # converts "a" - "z" shift amounts
     if letter_value >= 97 && letter_value <= 122
-      new_letter_value =
-        if letter_value + shift_amount > 122
-          letter_value + (shift_amount - 26)
-          # only works if shift amount < 25
-        else
-          letter_value + shift_amount
-        end
+      shift_amount -= 26 until shift_amount <= 26 && shift_amount >= 1
+
+      letter_value += shift_amount
     end
 
     # converts "A" - "Z" shifts
     if letter_value >= 65 && letter_value <= 90
-      new_letter_value =
-        if letter_value + shift_amount > 90
-          letter_value + (shift_amount - 26)
+      shift_amount -= 26 until shift_amount <= 26 && shift_amount >= 1
 
-          # only works with shift amounts < 25
-        else
-          letter_value + shift_amount
-        end
+      letter_value += shift_amount
     end
 
     # p new_letter_value.chr
-    new_letter_value.chr
+    letter_value.chr
   end
 
-  def create_word(input = '', shift_amount = 0)
+  def create_word(input: nil, shift_amount: nil)
     ciphered_string = ''
 
     puts 'Word to shift'
-    input ||= gets.chomp.to_s
+    input = gets.chomp.to_s if input.nil?
 
     puts 'Amount to shift'
     loop do
       shift_amount ||= gets.chomp.to_i
       if shift_amount.is_a?(Integer)
         if shift_amount < 26
-          ciphered_string = caesar_cipher(input, shift_amount)
-          break
-        else
-          puts 'Please enter values 25 & under'
+          return ciphered_string = caesar_cipher(input: input, shift: shift_amount)
         end
       else
         puts 'Improper input, enter an integer'
       end
     end
   end
-
-  # puts ciphered_string
 end
+
+# word = CaesarCipher.new
+# puts word.create_word
+
+# how to shift the word from the command line
+# uncomment the above 2 lines and the code will ask for a word and will shift the word

@@ -11,21 +11,27 @@ RSpec.describe CaesarCipher do
 
   context '.caesar_cipher(input, shift_amount)' do
     it 'shifts \'hi\' to \'jk\' with amount of 2' do
-      word = cipher.caesar_cipher('hi', 2)
+      word = cipher.caesar_cipher(input: 'hi', shift: 2)
 
       expect(word).to eq 'jk'
     end
 
     it 'shifts \'hi\' to \'jk\' with amount of 28' do
-      word = cipher.caesar_cipher('hi', 28)
+      word = cipher.caesar_cipher(input: 'hi', shift: 28)
 
       expect(word).to eq 'jk'
     end
 
-    it 'shifts \'hi\' to \'jk\' with amount of 56' do
-      word = cipher.caesar_cipher('hi', 50)
+    it 'shifts \'hi\' to \'jk\' with amount of 80' do
+      word = cipher.caesar_cipher(input: 'hi', shift: 80)
 
       expect(word).to eq 'jk'
+    end
+
+    it 'shifts \'boo\' to \'dqq\' with shift of 28' do
+      word = cipher.caesar_cipher(input: 'boo', shift: 28)
+
+      expect(word).to eq 'dqq'
     end
   end
 end
