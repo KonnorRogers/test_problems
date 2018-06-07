@@ -49,5 +49,28 @@ module Enumerable
         expect(array.my_all? { |element| element > 100 }).to eq false
       end
     end
+
+    context '.my_inject' do
+      it 'returns the sum of all items' do
+        expect(array.my_inject { |acc, element| acc + element }).to eq 51
+      end
+
+      it 'returns the accumulator' do
+        expect(array.my_inject(5) { |acc, _element| acc }).to eq 5
+      end
+
+      it 'raises an error if no block given' do
+        expect { array.my_inject }.to raise_error LocalJumpError
+      end
+    end
+
+    context '.my_map' do
+      it 'returns a new array with the same values + 1' do
+        new_array = array.my_map { |element| element + 1 }
+
+        expect(new_array[0]).to eq 6
+        expect(new_array.size).to eq 3
+      end
+    end
   end
 end
